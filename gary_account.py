@@ -11,6 +11,55 @@ import configparser
 import time
 
 
+
+
+def func_token_price(marketAPI):
+
+    instId_arr = ['BICO-USDT', 'XCH-USDT', 'CQT-USDT', 'BZZ-USDT', 'ETH-USDT', 'GRT-USDT', 'DOT-USDT', 'FIL-USDT', 'DYDX-USDT', 'LINK-USDT', 'AR-USDT', 'SOL-USDT', 'UNI-USDT','MATIC-USDT','FLOW-USDT','STORJ-USDT']
+    result = marketAPI.get_tickers('SPOT')
+    asset_arr = []
+    seq = 0
+    for token in result['data']:
+        if token['instId'] in instId_arr:
+            seq += 1
+            asset_dict = {}
+            asset_dict['序号']=seq
+            asset_dict['交易对'] = token['instId']
+            asset_dict['卖一价'] = token['askPx']
+            asset_arr.append(asset_dict)
+    print(json.dumps(asset_arr))
+
+
+def func_sell_asset(tradeAPI, asset_arr):
+    # 查看账户币种余额信息
+    # assetArr = ['BICO', 'XCH', 'CQT', 'BZZ', 'ETH', 'GRT', 'DOT', 'FIL', 'DYDX', 'LINK', 'AR', 'SOL', 'UNI','MATIC','FLOW','STORJ']
+    result = accountAPI.get_account()
+    assetArr=result['data'][0]['details']
+    asset_arr = []
+    seq = 0
+    for asset in assetArr:
+        if float(asset['disEq']) > 0.1:
+            seq += 1
+            asset_dict = {}
+            asset_dict['序号']=seq
+            asset_dict['币名']=asset['ccy']
+            asset_dict['可操作余额']=asset['availEq']
+            asset_dict['价值']=asset['disEq']
+            asset_arr.append(asset_dict)
+    print(json.dumps(asset_arr))
+
+    # 批量卖出资产
+    for asset in asset_arr:
+        if asset['ccy'] == 'USDT':
+            continue
+    
+        # 批量下单卖出
+        result = tradeAPI.place_multiple_orders([
+            {'instId': asset_dict['币名']+'-USDT', 'tdMode': 'cash', 'clOrdId': asset_dict['币名']+'_1', 'side': 'sell', 'ordType': 'market', 'sz': str(asset_dict['可操作余额'])}
+        ])
+        print(json.dumps(result))
+
+
 if __name__ == '__main__':
     file = '.config.ini'
     # 创建配置文件对象
@@ -28,19 +77,9 @@ if __name__ == '__main__':
 
     # account api
     accountAPI = Account.AccountAPI(api_key, secret_key, passphrase, False, flag)
-    # 查看账户持仓风险 GET Position_risk
-    # result = accountAPI.get_position_risk('SWAP')
-    # 查看账户余额  Get Balance
-    result = accountAPI.get_account()
-    assetArr=result['data'][0]['details']
-    for asset in assetArr:
-        print(asset['ccy'])
-        print('可操作余额', asset['availEq'])
-        print('价值', asset['disEq'])
-    
-    # trade API
+     # trade API
     tradeAPI = Trade.TradeAPI(api_key, secret_key, passphrase, False, flag)
-    # 批量下单  Place Multiple Orders
-    # result = tradeAPI.place_multiple_orders([
-    #     {'instId': 'BTC-USD', 'tdMode': 'cash', 'side': 'sell', 'ordType': 'market', 'sz': '委托数量'}
-    # ])
+
+    # 查看价格
+    marketAPI = Market.MarketAPI(api_key, secret_key, passphrase, False, flag)
+    func_token_price(marketAPI)

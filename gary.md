@@ -1,31 +1,33 @@
 
+## 
+pip3 install requests
+pip3 install websockets==6.0
 ## 定投
 1. BTC
 2. XCH
 
 3. ETH
 4. SOL
+5. MATIC
+6. FLOW
 
-5. DOT
+7. DOT
 
-6. FIL
+8. FIL
 7. AR
-8. STORJ
-4. BZZ
+9. STORJ
+10. BZZ
 
-9. BICO
+11. BICO
 
-10. CQT
-11. GRT
+12. CQT
+13. GRT
 
-9. DYDX
+14. DYDX
+15. UNI
 
-10. LINK
+16. LINK
 
-13. UNI
 
-14. MATIC
-
-15. FLOW
 
 
