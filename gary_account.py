@@ -38,13 +38,9 @@ if __name__ == '__main__':
         print('可操作余额', asset['availEq'])
         print('价值', asset['disEq'])
     
-#     {
-#   "code": "0",
-#   "data": [
-#     {
-#       "adjEq": "",
-#       "details": [
-#         {
-#           "availBal": "",
-
-    # print(json.dumps(result))
+    # trade API
+    tradeAPI = Trade.TradeAPI(api_key, secret_key, passphrase, False, flag)
+    # 批量下单  Place Multiple Orders
+    # result = tradeAPI.place_multiple_orders([
+    #     {'instId': 'BTC-USD', 'tdMode': 'cash', 'side': 'sell', 'ordType': 'market', 'sz': '委托数量'}
+    # ])

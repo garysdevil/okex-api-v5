@@ -1,19 +1,31 @@
 
-##
-1. BICO
+## 定投
+1. BTC
 2. XCH
-3. CQT
+
+3. ETH
+4. SOL
+
+5. DOT
+
+6. FIL
+7. AR
+8. STORJ
 4. BZZ
-5. ETH
-6. GRT
-7. DOT
-8. FIL
+
+9. BICO
+
+10. CQT
+11. GRT
+
 9. DYDX
+
 10. LINK
-11. AR
-12. SOL
+
 13. UNI
+
 14. MATIC
+
 15. FLOW
-16. STORJ
+
 
