@@ -1,0 +1,19 @@
+
+##
+1. BICO
+2. XCH
+3. CQT
+4. BZZ
+5. ETH
+6. GRT
+7. DOT
+8. FIL
+9. DYDX
+10. LINK
+11. AR
+12. SOL
+13. UNI
+14. MATIC
+15. FLOW
+16. STORJ
+
